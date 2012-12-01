@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.0.1
+%define		gst_req_ver	1.0.3
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.0.2
-Release:	2
+Version:	1.0.3
+Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	17f2ba1b51347061f8f81436d6c7b65e
+# Source0-md5:	f5d0f4bc5ae066b10aae5bdb4e97a52d
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -49,6 +49,8 @@ BuildRequires:	mjpegtools-devel
 BuildRequires:	neon-devel
 BuildRequires:	openal-soft-devel
 BuildRequires:	rpm-gstreamerprov
+BuildRequires:	rtmpdump-devel
+BuildRequires:	soundtouch-devel
 BuildRequires:	vo-aacenc-devel
 BuildRequires:	xvidcore-devel
 Requires(post,preun):	glib-gio-gsettings
@@ -182,6 +184,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
 %attr(755,root,root) %{gstlibdir}/libgstremovesilence.so
 %attr(755,root,root) %{gstlibdir}/libgstresindvd.so
+%attr(755,root,root) %{gstlibdir}/libgstrtmp.so
 %attr(755,root,root) %{gstlibdir}/libgstrtpmux.so
 %attr(755,root,root) %{gstlibdir}/libgstrtpvp8.so
 %attr(755,root,root) %{gstlibdir}/libgstscaletempoplugin.so
@@ -190,6 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstshm.so
 %attr(755,root,root) %{gstlibdir}/libgstsiren.so
 %attr(755,root,root) %{gstlibdir}/libgstsmooth.so
+%attr(755,root,root) %{gstlibdir}/libgstsoundtouch.so
 %attr(755,root,root) %{gstlibdir}/libgstspeed.so
 %attr(755,root,root) %{gstlibdir}/libgstsubenc.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoparsersbad.so
