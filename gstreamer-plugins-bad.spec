@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.0.3
+%define		gst_req_ver	1.0.4
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.0.3
+Version:	1.0.4
 Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	f5d0f4bc5ae066b10aae5bdb4e97a52d
+# Source0-md5:	5f8dce09342c26bd916affbab5a6a7ff
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
