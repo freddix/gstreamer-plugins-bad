@@ -6,12 +6,12 @@
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.0.5
+Version:	1.0.6
 Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	07ed29084e0de968cdd1675f7ee228e2
+# Source0-md5:	5fe353942c6e5adac23f35542b131484
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -152,6 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstcurl.so
 %attr(755,root,root) %{gstlibdir}/libgstdataurisrc.so
 %attr(755,root,root) %{gstlibdir}/libgstdebugutilsbad.so
+%attr(755,root,root) %{gstlibdir}/libgstdecklink.so
 %attr(755,root,root) %{gstlibdir}/libgstdtmf.so
 %attr(755,root,root) %{gstlibdir}/libgstdtsdec.so
 %attr(755,root,root) %{gstlibdir}/libgstdvb.so
