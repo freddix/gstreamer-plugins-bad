@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.0.7
+%define		gst_req_ver	1.0.8
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.0.7
+Version:	1.0.8
 Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	d1493d1219b836a8cbf54f4fba962420
+# Source0-md5:	a2fdf125ee2ae46047dcbcfc305949ee
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -181,11 +181,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstmpegtsmux.so
 %attr(755,root,root) %{gstlibdir}/libgstmpg123.so
 %attr(755,root,root) %{gstlibdir}/libgstmplex.so
+%attr(755,root,root) %{gstlibdir}/libgstneonhttpsrc.so
+%attr(755,root,root) %{gstlibdir}/libgstofa.so
+%attr(755,root,root) %{gstlibdir}/libgstopenal.so
 %attr(755,root,root) %{gstlibdir}/libgstpcapparse.so
 %attr(755,root,root) %{gstlibdir}/libgstpnm.so
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
 %attr(755,root,root) %{gstlibdir}/libgstremovesilence.so
 %attr(755,root,root) %{gstlibdir}/libgstresindvd.so
+%attr(755,root,root) %{gstlibdir}/libgstrfbsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstrtmp.so
 %attr(755,root,root) %{gstlibdir}/libgstrtpmux.so
 %attr(755,root,root) %{gstlibdir}/libgstrtpvp8.so
@@ -201,6 +205,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideoparsersbad.so
 %attr(755,root,root) %{gstlibdir}/libgstvoaacenc.so
 %attr(755,root,root) %{gstlibdir}/libgsty4mdec.so
+
 
 %files libs
 %defattr(644,root,root,755)
