@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.0.8
+%define		gst_req_ver	1.0.10
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.0.8
+Version:	1.0.10
 Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	a2fdf125ee2ae46047dcbcfc305949ee
+# Source0-md5:	f1fd76e251824d80657dbe3ceb1d9aa1
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -29,6 +29,7 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel
 BuildRequires:	faac-devel
 BuildRequires:	faad2-devel
+BuildRequires:	fluidsynth-devel
 BuildRequires:	frei0r-devel
 BuildRequires:	jasper-devel
 BuildRequires:	libass-devel
@@ -162,6 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstfaad.so
 %attr(755,root,root) %{gstlibdir}/libgstfestival.so
 %attr(755,root,root) %{gstlibdir}/libgstfieldanalysis.so
+%attr(755,root,root) %{gstlibdir}/libgstfluidsynthmidi.so
 %attr(755,root,root) %{gstlibdir}/libgstfragmented.so
 %attr(755,root,root) %{gstlibdir}/libgstfrei0r.so
 %attr(755,root,root) %{gstlibdir}/libgstgaudieffects.so
@@ -172,6 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstinterlace.so
 %attr(755,root,root) %{gstlibdir}/libgstjpegformat.so
 %attr(755,root,root) %{gstlibdir}/libgstliveadder.so
+%attr(755,root,root) %{gstlibdir}/libgstmidi.so
 %attr(755,root,root) %{gstlibdir}/libgstmms.so
 %attr(755,root,root) %{gstlibdir}/libgstmodplug.so
 %attr(755,root,root) %{gstlibdir}/libgstmpeg2enc.so
