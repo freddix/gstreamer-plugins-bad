@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.2.0
+%define		gst_req_ver	1.2.1
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.2.0
-Release:	2
+Version:	1.2.1
+Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	4fd078e1b9d903d22b67872b616f1715
+# Source0-md5:	8ee6863cbb917bb4bd235698b87192a4
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -262,8 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/GstInsertBin-%{gst_major_ver}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{gst_major_ver}.gir
 %{_pkgconfigdir}/gstreamer-codecparsers-%{gst_major_ver}.pc
-%{_pkgconfigdir}/gstreamer-plugins-bad-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-insertbin-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-mpegts-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-plugins-bad-%{gst_major_ver}.pc
 
 %files apidocs
 %defattr(644,root,root,755)
