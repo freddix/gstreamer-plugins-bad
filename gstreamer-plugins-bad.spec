@@ -7,7 +7,7 @@
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
 Version:	1.2.2
-Release:	1
+Release:	2
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
@@ -25,7 +25,7 @@ BuildRequires:	libtool
 BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	pkg-config
 #
-BuildRequires:	OpenCV-devel
+#BuildRequires:	OpenCV-devel <= 2.4.6.1 ???
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel
 BuildRequires:	bzip2-devel
@@ -62,6 +62,7 @@ BuildRequires:	mjpegtools-devel
 BuildRequires:	mpg123-libs-devel
 BuildRequires:	neon-devel
 BuildRequires:	openal-soft-devel
+BuildRequires:	opus-devel
 BuildRequires:	orc-devel
 BuildRequires:	rpm-gstreamerprov
 BuildRequires:	rtmpdump-devel
@@ -213,7 +214,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstneonhttpsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstofa.so
 %attr(755,root,root) %{gstlibdir}/libgstopenal.so
-%attr(755,root,root) %{gstlibdir}/libgstopencv.so
+#%attr(755,root,root) %{gstlibdir}/libgstopencv.so
+%attr(755,root,root) %{gstlibdir}/libgstopus.so
 %attr(755,root,root) %{gstlibdir}/libgstpcapparse.so
 %attr(755,root,root) %{gstlibdir}/libgstpnm.so
 %attr(755,root,root) %{gstlibdir}/libgstrawparse.so
@@ -239,7 +241,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstwebp.so
 %attr(755,root,root) %{gstlibdir}/libgsty4mdec.so
 %attr(755,root,root) %{gstlibdir}/libgstyadif.so
-%{_datadir}/gst-plugins-bad
+#%{_datadir}/gst-plugins-bad
 
 %files libs
 %defattr(644,root,root,755)
