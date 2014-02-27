@@ -7,7 +7,7 @@
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
 Version:	1.2.3
-Release:	1
+Release:	2
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
@@ -126,6 +126,7 @@ patch -p0 < common/gettext.patch
 %configure \
 	--disable-gsm		\
 	--disable-ladspa	\
+	--disable-opencv	\
 	--disable-silent-rules	\
 	--disable-static	\
 	--with-html-dir=%{_gtkdocdir}
