@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.2.3
+%define		gst_req_ver	1.2.4
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.2.3
-Release:	2
+Version:	1.2.4
+Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	cfd6f303c8df2740b27cc63b945decef
+# Source0-md5:	16c2050716383926909664aa6c6aca2b
 Patch0:		%{name}-musicbrainz5.patch
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
@@ -26,6 +26,7 @@ BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	pkg-config
 #
 #BuildRequires:	OpenCV-devel <= 2.4.6.1 ???
+BuildRequires:	EGL-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel
 BuildRequires:	bzip2-devel
@@ -69,6 +70,7 @@ BuildRequires:	rtmpdump-devel
 BuildRequires:	soundtouch-devel
 BuildRequires:	udev-glib-devel
 BuildRequires:	vo-aacenc-devel
+BuildRequires:	wayland-devel
 BuildRequires:	xorg-libX11-devel
 BuildRequires:	xvidcore-devel
 Requires(post,preun):	glib-gio-gsettings
@@ -138,8 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# We don't need plugins' *.la files
-rm -f $RPM_BUILD_ROOT%{gstlibdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{gstlibdir}/*.la
 
 %find_lang %{gstname}-%{gst_major_ver}
 
@@ -239,10 +241,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideofiltersbad.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoparsersbad.so
 %attr(755,root,root) %{gstlibdir}/libgstvoaacenc.so
+%attr(755,root,root) %{gstlibdir}/libgstwaylandsink.so
 %attr(755,root,root) %{gstlibdir}/libgstwebp.so
 %attr(755,root,root) %{gstlibdir}/libgsty4mdec.so
 %attr(755,root,root) %{gstlibdir}/libgstyadif.so
-#%{_datadir}/gst-plugins-bad
 
 %files libs
 %defattr(644,root,root,755)
@@ -250,21 +252,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %{_libdir}/girepository-1.0/GstInsertBin-%{gst_major_ver}.typelib
 %{_libdir}/girepository-1.0/GstMpegts-%{gst_major_ver}.typelib
+%{_libdir}/girepository-1.0/GstEGL-1.0.typelib
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/basecamerabinsrc
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/codecparsers
+%{_includedir}/gstreamer-%{gst_major_ver}/gst/egl
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/insertbin
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/mpegts
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/uridownloader
 %dir %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces/photography-enumtypes.h
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces/photography.h
+%{_datadir}/gir-1.0/GstEGL-%{gst_major_ver}.gir
 %{_datadir}/gir-1.0/GstInsertBin-%{gst_major_ver}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{gst_major_ver}.gir
 %{_pkgconfigdir}/gstreamer-codecparsers-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-egl-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-insertbin-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-mpegts-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-plugins-bad-%{gst_major_ver}.pc
