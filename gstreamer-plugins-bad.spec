@@ -2,17 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.2.4
+%define		gst_req_ver	1.4.3
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.2.4
+Version:	1.4.3
 Release:	1
 License:	LPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	16c2050716383926909664aa6c6aca2b
-Patch0:		%{name}-musicbrainz5.patch
+# Source0-md5:	77c6bf4b7a328f03860a59171aa1bec5
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -25,11 +24,14 @@ BuildRequires:	libtool
 BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	pkg-config
 #
-#BuildRequires:	OpenCV-devel <= 2.4.6.1 ???
 BuildRequires:	EGL-devel
+BuildRequires:	OpenCV-devel
+BuildRequires:	OpenEXR-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	SDL-devel
 BuildRequires:	bzip2-devel
+BuildRequires:	bzip2-devel
+BuildRequires:	cairo-devel
 BuildRequires:	curl-devel
 BuildRequires:	dbus-devel
 BuildRequires:	faac-devel
@@ -39,6 +41,7 @@ BuildRequires:	frei0r-devel
 BuildRequires:	glib-gio-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	jasper-devel
+BuildRequires:	ladspa-devel
 BuildRequires:	libass-devel >= 0.10.1-2
 BuildRequires:	libcdaudio-devel
 BuildRequires:	libdc1394-devel
@@ -69,8 +72,11 @@ BuildRequires:	rpm-gstreamerprov
 BuildRequires:	rtmpdump-devel
 BuildRequires:	soundtouch-devel
 BuildRequires:	udev-glib-devel
+BuildRequires:	udev-glib-devel
+BuildRequires:	vo-aacenc-devel
 BuildRequires:	vo-aacenc-devel
 BuildRequires:	wayland-devel
+BuildRequires:	xorg-libX11-devel
 BuildRequires:	xorg-libX11-devel
 BuildRequires:	xvidcore-devel
 Requires(post,preun):	glib-gio-gsettings
@@ -115,7 +121,6 @@ gstreamer-plugins-bad API documentation.
 
 %prep
 %setup -qn %{gstname}-%{version}
-#%patch0 -p1
 
 %build
 %{__autopoint}
@@ -127,12 +132,12 @@ patch -p0 < common/gettext.patch
 %{__automake}
 %configure \
 	--disable-gsm		\
-	--disable-ladspa	\
-	--disable-opencv	\
 	--disable-silent-rules	\
 	--disable-static	\
-	--with-html-dir=%{_gtkdocdir}
-%{__make} -j1
+	--with-html-dir=%{_gtkdocdir}	\
+	--with-package-name="GStreamer (Freddix)"   \
+	--with-package-origin="http://freddix.org/"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -167,13 +172,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstasfmux.so
 %attr(755,root,root) %{gstlibdir}/libgstassrender.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiofxbad.so
+%attr(755,root,root) %{gstlibdir}/libgstaudiomixer.so
 %attr(755,root,root) %{gstlibdir}/libgstaudiovisualizers.so
 %attr(755,root,root) %{gstlibdir}/libgstautoconvert.so
 %attr(755,root,root) %{gstlibdir}/libgstbayer.so
-%attr(755,root,root) %{gstlibdir}/libgstbluez.so
 %attr(755,root,root) %{gstlibdir}/libgstbz2.so
 %attr(755,root,root) %{gstlibdir}/libgstcamerabin2.so
 %attr(755,root,root) %{gstlibdir}/libgstcoloreffects.so
+%attr(755,root,root) %{gstlibdir}/libgstcompositor.so
 %attr(755,root,root) %{gstlibdir}/libgstcurl.so
 %attr(755,root,root) %{gstlibdir}/libgstdashdemux.so
 %attr(755,root,root) %{gstlibdir}/libgstdataurisrc.so
@@ -198,11 +204,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstid3tag.so
 %attr(755,root,root) %{gstlibdir}/libgstinter.so
 %attr(755,root,root) %{gstlibdir}/libgstinterlace.so
+%attr(755,root,root) %{gstlibdir}/libgstivfparse.so
 %attr(755,root,root) %{gstlibdir}/libgstivtc.so
+%attr(755,root,root) %{gstlibdir}/libgstjp2kdecimator.so
 %attr(755,root,root) %{gstlibdir}/libgstjpegformat.so
 %attr(755,root,root) %{gstlibdir}/libgstkate.so
+%attr(755,root,root) %{gstlibdir}/libgstladspa.so
 %attr(755,root,root) %{gstlibdir}/libgstliveadder.so
-%attr(755,root,root) %{gstlibdir}/libgstmfc.so
 %attr(755,root,root) %{gstlibdir}/libgstmidi.so
 %attr(755,root,root) %{gstlibdir}/libgstmms.so
 %attr(755,root,root) %{gstlibdir}/libgstmodplug.so
@@ -217,7 +225,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstneonhttpsrc.so
 %attr(755,root,root) %{gstlibdir}/libgstofa.so
 %attr(755,root,root) %{gstlibdir}/libgstopenal.so
-#%attr(755,root,root) %{gstlibdir}/libgstopencv.so
+%attr(755,root,root) %{gstlibdir}/libgstopencv.so
+%attr(755,root,root) %{gstlibdir}/libgstopenexr.so
+%attr(755,root,root) %{gstlibdir}/libgstopengl.so
 %attr(755,root,root) %{gstlibdir}/libgstopus.so
 %attr(755,root,root) %{gstlibdir}/libgstpcapparse.so
 %attr(755,root,root) %{gstlibdir}/libgstpnm.so
@@ -234,17 +244,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstsiren.so
 %attr(755,root,root) %{gstlibdir}/libgstsmooth.so
 %attr(755,root,root) %{gstlibdir}/libgstsmoothstreaming.so
+%attr(755,root,root) %{gstlibdir}/libgstsndfile.so
 %attr(755,root,root) %{gstlibdir}/libgstsoundtouch.so
 %attr(755,root,root) %{gstlibdir}/libgstspeed.so
+%attr(755,root,root) %{gstlibdir}/libgststereo.so
 %attr(755,root,root) %{gstlibdir}/libgstsubenc.so
 %attr(755,root,root) %{gstlibdir}/libgstuvch264.so
 %attr(755,root,root) %{gstlibdir}/libgstvideofiltersbad.so
 %attr(755,root,root) %{gstlibdir}/libgstvideoparsersbad.so
+%attr(755,root,root) %{gstlibdir}/libgstvideosignal.so
+%attr(755,root,root) %{gstlibdir}/libgstvmnc.so
 %attr(755,root,root) %{gstlibdir}/libgstvoaacenc.so
 %attr(755,root,root) %{gstlibdir}/libgstwaylandsink.so
 %attr(755,root,root) %{gstlibdir}/libgstwebp.so
 %attr(755,root,root) %{gstlibdir}/libgsty4mdec.so
 %attr(755,root,root) %{gstlibdir}/libgstyadif.so
+%dir %{_datadir}/gst-plugins-bad
+%dir %{_datadir}/gst-plugins-bad/%{gst_major_ver}
+%{_datadir}/gst-plugins-bad/1.0/opencv_haarcascades
 
 %files libs
 %defattr(644,root,root,755)
@@ -252,29 +269,27 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %{_libdir}/girepository-1.0/GstInsertBin-%{gst_major_ver}.typelib
 %{_libdir}/girepository-1.0/GstMpegts-%{gst_major_ver}.typelib
-%{_libdir}/girepository-1.0/GstEGL-1.0.typelib
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/basecamerabinsrc
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/codecparsers
-%{_includedir}/gstreamer-%{gst_major_ver}/gst/egl
+%{_includedir}/gstreamer-%{gst_major_ver}/gst/gl
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/insertbin
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/mpegts
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/uridownloader
 %dir %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces/photography-enumtypes.h
 %{_includedir}/gstreamer-%{gst_major_ver}/gst/interfaces/photography.h
-%{_datadir}/gir-1.0/GstEGL-%{gst_major_ver}.gir
 %{_datadir}/gir-1.0/GstInsertBin-%{gst_major_ver}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{gst_major_ver}.gir
 %{_pkgconfigdir}/gstreamer-codecparsers-%{gst_major_ver}.pc
-%{_pkgconfigdir}/gstreamer-egl-%{gst_major_ver}.pc
+%{_pkgconfigdir}/gstreamer-gl-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-insertbin-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-mpegts-%{gst_major_ver}.pc
 %{_pkgconfigdir}/gstreamer-plugins-bad-%{gst_major_ver}.pc
 
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/gst-plugins-bad-libs-*
+%{_gtkdocdir}/gst-plugins-bad-*
