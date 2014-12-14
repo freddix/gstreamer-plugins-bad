@@ -2,16 +2,16 @@
 
 %define		gstname		gst-plugins-bad
 %define		gst_major_ver	1.0
-%define		gst_req_ver	1.4.3
+%define		gst_req_ver	1.4.4
 
 Summary:	Bad GStreamer Streaming-media framework plugins
 Name:		gstreamer-plugins-bad
-Version:	1.4.3
-Release:	2
-License:	LPL
+Version:	1.4.4
+Release:	1
+License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-bad/%{gstname}-%{version}.tar.xz
-# Source0-md5:	77c6bf4b7a328f03860a59171aa1bec5
+# Source0-md5:	972c6e22dd2e44fcf0b04b9d810a56be
 URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
